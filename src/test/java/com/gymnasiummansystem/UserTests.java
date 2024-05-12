@@ -15,7 +15,7 @@ public class UserTests {
 
     @Test
     public void listUsersTest(){
-        List<User> users = userService.listUsers();
+        List<User> users = userService.listUsers(1,2);
         for (User user : users){
             System.out.println(user);
         }
@@ -24,7 +24,7 @@ public class UserTests {
     @Test
     public void addUserTest(){
         User user = new User(null,"李四","1234567890",'男',"用户","lisi","11451411","110@qq.com","12123");
-        userService.addUser(user);
+        userService.register(user);
     }
 
     @Test

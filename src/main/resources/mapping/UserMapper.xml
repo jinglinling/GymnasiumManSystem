@@ -7,7 +7,7 @@
         select * from user
     </select>
     
-    <insert id="addUser" parameterType="com.gymnasiummansystem.entity.User">
+    <insert id="register" parameterType="com.gymnasiummansystem.entity.User">
         insert into user
         value (#{id},#{userName},#{password},#{gender},#{role},#{realName},#{citizenId},#{email},#{phoneNumber})
     </insert>
@@ -30,4 +30,14 @@
     <delete id="deleteUser" parameterType="int">
         delete from user where id = #{id}
     </delete>
+
+    <select id="login" resultType="boolean">
+        select case when count(*) > 0 then 'true' else 'false' end
+        from user
+        where userName = #{userName} and password = #{password}
+    </select>
+
+    <select id="findByUserName" resultType="com.gymnasiummansystem.entity.User">
+        select * from user where userName = #{userName}
+    </select>
 </mapper>
