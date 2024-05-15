@@ -13,4 +13,5 @@ public interface UserService {
     void deleteUser(Integer id);
     Boolean login(String username, String password);
     User findByUserName(String username);
+    User findById(Integer id);
 }

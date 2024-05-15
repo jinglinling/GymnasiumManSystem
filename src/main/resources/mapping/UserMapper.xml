@@ -40,4 +40,8 @@
     <select id="findByUserName" resultType="com.gymnasiummansystem.entity.User">
         select * from user where userName = #{userName}
     </select>
+
+    <select id="findById" resultType="com.gymnasiummansystem.entity.User">
+        select * from user where id = #{id}
+    </select>
 </mapper>

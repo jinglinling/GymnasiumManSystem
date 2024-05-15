@@ -23,16 +23,19 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
+    @Transactional
     @Override
     public void register(User user) {
         userMapper.register(user);
     }
 
+    @Transactional
     @Override
     public void updateUser(User user) {
         userMapper.updateUser(user);
     }
 
+    @Transactional
     @Override
     public void deleteUser(Integer id) {
         userMapper.deleteUser(id);
@@ -47,5 +50,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User findByUserName(String username) {
         return userMapper.findByUserName(username);
+    }
+
+    @Override
+    public User findById(Integer id) {
+        return userMapper.findById(id);
     }
 }

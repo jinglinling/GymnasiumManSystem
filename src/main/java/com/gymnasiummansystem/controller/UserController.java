@@ -48,4 +48,46 @@ public class UserController {
         List<User> users = userService.listUsers(pageNum, pageSize);
         return ResponseEntity.ok(users);
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateUser(@RequestBody User user) {
+        try {
+            userService.updateUser(user);
+            return ResponseEntity.ok("Update success");
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Update failed");
+        }
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteUser(@RequestParam("id")Integer id) {
+        try {
+            userService.deleteUser(id);
+            return ResponseEntity.ok("Delete success");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Delete failed");
+        }
+    }
+
+    @PutMapping("/updateRole")
+    public ResponseEntity<?> updateRole(@RequestParam("id")Integer id) {
+        User existingUser = userService.findById(id);
+        if (existingUser == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+        String role = existingUser.getRole();
+        if ("用户".equals(role)) {
+            existingUser.setRole("管理员");
+        } else if ("管理员".equals(role)) {
+            existingUser.setRole("用户");
+        }else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Update role failed");
+        }
+        try {
+            userService.updateUser(existingUser);
+            return ResponseEntity.ok("Update role success");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Update role failed");
+        }
+    }
 }
